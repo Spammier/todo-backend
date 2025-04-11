@@ -15,8 +15,7 @@ type Todo struct {
 	UserID      uint      `json:"user_id" gorm:"not null;index"`
 	Title       string    `json:"title" gorm:"not null"`
 	Description string    `json:"description"`
-	DueDate     time.Time `json:"due_date"`                  // 截止日期
-	Priority    int       `json:"priority" gorm:"default:0"` // 优先级：0-低，1-中，2-高
+	DueDate     time.Time `json:"due_date"` // 截止日期
 	Completed   bool      `json:"completed" gorm:"default:false"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
