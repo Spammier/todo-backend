@@ -12,6 +12,7 @@ import (
 // Todo 表示一个待办事项
 type Todo struct {
 	ID          uint      `json:"id" gorm:"primaryKey"`
+	UserID      uint      `json:"user_id" gorm:"not null;index"`
 	Title       string    `json:"title" gorm:"not null"`
 	Description string    `json:"description"`
 	Completed   bool      `json:"completed" gorm:"default:false"`
