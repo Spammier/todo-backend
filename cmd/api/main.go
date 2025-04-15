@@ -9,7 +9,7 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
+	"github.com/joho/godotenv" // 取消注释，重新导入 godotenv 库
 )
 
 // getEnvOrDefault 获取环境变量，如果不存在则返回默认值
@@ -22,9 +22,10 @@ func getEnvOrDefault(key, defaultValue string) string {
 }
 
 func main() {
-	// 在程序启动时加载 .env 文件
+	// 取消注释，在程序启动时加载 .env 文件
 	err := godotenv.Load()
 	if err != nil {
+		// 如果 .env 文件不存在，打印日志，但允许继续，依赖系统环境变量或默认值
 		log.Println("未找到 .env 文件，将使用系统环境变量或默认值")
 	}
 
