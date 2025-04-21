@@ -54,6 +54,7 @@ DB_PORT=your_db_port
 DB_NAME=your_db_name
 
 # JWT配置 (请使用强密钥)
+# 重要：必须设置一个安全的 JWT_SECRET_KEY，否则用户认证功能将无法工作。
 JWT_SECRET_KEY=your_strong_jwt_secret_key
 
 # Redis配置
@@ -74,6 +75,24 @@ PORT=8080
     ```
 
 服务器将在配置的端口（默认为`8080`）启动。
+
+### 使用 Docker 运行
+
+1.  **构建 Docker 镜像**:
+    ```bash
+    docker build -t todo-backend .
+    ```
+
+2.  **运行 Docker 容器**:
+    确保您的数据库和 Redis 可以从 Docker 容器访问 (可能需要调整 `.env` 文件中的 `DB_HOST` 和 `REDIS_ADDR`，例如使用 `host.docker.internal` 或具体的 IP 地址)。
+    ```bash
+    # 使用您的 .env 文件运行
+    docker run --env-file .env -p 8080:8080 --name todo-app todo-backend
+
+    # 或者直接传递环境变量 (示例)
+    # docker run -e DB_USER=... -e DB_PASSWORD=... -e DB_HOST=... -e DB_PORT=... -e DB_NAME=... -e JWT_SECRET_KEY=... -e REDIS_ADDR=... -e REDIS_PASSWORD=... -e REDIS_DB=... -e PORT=8080 -p 8080:8080 --name todo-app todo-backend
+    ```
+    容器将在后台运行，并将容器的 8080 端口映射到主机的 8080 端口。
 
 ## API文档
 
@@ -109,7 +128,7 @@ PORT=8080
 - `DB_HOST`: 数据库主机
 - `DB_PORT`: 数据库端口
 - `DB_NAME`: 数据库名称
-- `JWT_SECRET_KEY`: JWT签名密钥 (请使用强密钥)
+- `JWT_SECRET_KEY`: JWT签名密钥 (**必需**, 请使用强密钥)
 - `REDIS_ADDR`: Redis服务器地址 (例如: `localhost:6379`)
 - `REDIS_PASSWORD`: Redis密码 (如果需要)
 - `REDIS_DB`: Redis数据库编号 (通常是0)
