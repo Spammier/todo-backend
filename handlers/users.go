@@ -12,10 +12,10 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// 从环境变量获取JWT密钥，如果未设置则使用默认值（仅用于开发环境）
-var jwtKey = []byte(getEnvOrDefault("JWT_SECRET_KEY", "your-secret-key"))
+// jwtKey 从环境变量获取，不再提供默认值
+var jwtKey = []byte(os.Getenv("JWT_SECRET_KEY"))
 
-// getEnvOrDefault 获取环境变量，如果不存在则返回默认值
+// getEnvOrDefault 获取环境变量，如果不存在则返回默认值 (此函数不再用于jwtKey)
 func getEnvOrDefault(key, defaultValue string) string {
 	value := os.Getenv(key)
 	if value == "" {
